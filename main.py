@@ -66,7 +66,6 @@ try:
 
                     output.write_loaded()
                     driver.back()
-                    print 'pussy'
                 else:
                     continue
             driver.back()
