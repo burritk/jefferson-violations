@@ -7,9 +7,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-def get_headless_driver():
+def get_headless_driver(no_sandbox=False):
     chrome_options = Options()
     chrome_options.add_argument("--headless")
+    if no_sandbox:
+        chrome_options.add_argument('--no-sandbox')
     current_path = os.path.dirname(__file__)
     filename = os.path.join(current_path, 'chromedriver')
     driver = webdriver.Chrome(filename, chrome_options=chrome_options)

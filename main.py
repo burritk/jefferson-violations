@@ -1,7 +1,7 @@
 from pyscraper.selenium_utils import get_headless_driver, wait_for_classname, wait_for_id
 from pyscraper.data_dump_file import DataFile
 
-driver = get_headless_driver()
+driver = get_headless_driver(no_sandbox=True)
 try:
     driver.get("http://jp-appserver.jeffparish.net/servicerequest/findServices.aspx")
     links = driver.find_elements_by_tag_name('a')
