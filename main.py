@@ -7,12 +7,17 @@ try:
     links = driver.find_elements_by_tag_name('a')
     address = [link for link in links if 'Address' in link.text][0]
     address.click()
+
+    street = wait_for_id(driver, 'ddlStreet')
+    options = street.find_elements_by_tag_name('option')
+
     output = DataFile('violations')
     with output:
-        for index in range(10,40):
+        for index in range(2, len(options)):
             street = wait_for_id(driver, 'ddlStreet')
             options = street.find_elements_by_tag_name('option')
             options[index].click()
+            print options[index].text
             search_button = driver.find_element_by_id('btnSearch')
             search_button.click()
             rows = driver.find_elements_by_tag_name('tr')
