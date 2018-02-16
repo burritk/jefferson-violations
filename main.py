@@ -11,8 +11,8 @@ try:
     street = wait_for_id(driver, 'ddlStreet')
     options = street.find_elements_by_tag_name('option')
 
-    output = DataFile('violations2')
-    log = DataFile('log2')
+    output = DataFile('violations3')
+    log = DataFile('log3')
     with output, log:
         for index in range(2, len(options)):
             street = wait_for_id(driver, 'ddlStreet')
