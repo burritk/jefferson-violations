@@ -1,4 +1,4 @@
-from pyscraper.selenium_utils import get_headless_driver, wait_for_classname, wait_for_id
+from pyscraper.selenium_utils import get_headed_driver, get_headless_driver, wait_for_classname, wait_for_id
 from pyscraper.data_dump_file import DataFile
 
 driver = get_headless_driver(no_sandbox=True)
@@ -19,14 +19,14 @@ try:
             options = street.find_elements_by_tag_name('option')
             options[index].click()
             street = options[index].text
-            print street
-
             search_button = driver.find_element_by_id('btnSearch')
             search_button.click()
             rows = driver.find_elements_by_tag_name('tr')
             log.load_value(street + " rows: " + str(len(rows)))
             repeat_offenders = 0
+            print '\n' + street, len(rows)
             for i in range(len(rows)):
+                print i,
                 rows = driver.find_elements_by_tag_name('tr')
                 row = rows[i]
                 test_text = [element.text for element in row.find_elements_by_tag_name('tr')]
@@ -34,7 +34,7 @@ try:
                 first_section = row_text.split()
                 if 'repeat offender' in row_text.lower() and ('/2018' in row_text or '/2017' in row_text):
                     repeat_offenders += 1
-                    print row_text
+                    print '\n' + row_text
                     link = row.find_element_by_tag_name('a')
                     link.click()
                     wait_for_classname(driver, 'lbl_title')
