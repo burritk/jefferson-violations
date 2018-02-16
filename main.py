@@ -30,7 +30,10 @@ try:
                     print i,
                     wait_for_classname(driver, 'special_alt_td')
                     rows = driver.find_elements_by_tag_name('tr')
-                    row = rows[i]
+                    try:
+                        row = rows[i]
+                    except:
+                        print 'NOT ENOUGH ROWS HEH'
                     test_text = [element.text for element in row.find_elements_by_tag_name('tr')]
                     row_text = row.text
                     first_section = row_text.split()
