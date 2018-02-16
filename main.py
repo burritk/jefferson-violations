@@ -1,4 +1,4 @@
-from pyscraper.selenium_utils import get_headed_driver, get_headless_driver, wait_for_classname, wait_for_id
+from pyscraper.selenium_utils import get_headed_driver, get_headless_driver, wait_for_classname, wait_for_id, wait_for_tag
 from pyscraper.data_dump_file import DataFile
 
 driver = get_headless_driver(no_sandbox=True)
@@ -11,8 +11,8 @@ try:
     street = wait_for_id(driver, 'ddlStreet')
     options = street.find_elements_by_tag_name('option')
 
-    output = DataFile('violations6')
-    log = DataFile('log6')
+    output = DataFile('violations7')
+    log = DataFile('log7')
     with output, log:
         for index in range(2, len(options)):
             street = wait_for_id(driver, 'ddlStreet')
@@ -27,6 +27,7 @@ try:
             print '\n' + street, len(rows)
             for i in range(len(rows)):
                 print i,
+                wait_for_classname(driver, 'special_alt_td')
                 rows = driver.find_elements_by_tag_name('tr')
                 row = rows[i]
                 test_text = [element.text for element in row.find_elements_by_tag_name('tr')]
