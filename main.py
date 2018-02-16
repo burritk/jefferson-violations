@@ -14,7 +14,7 @@ try:
     output = DataFile('violations')
     log = DataFile('log1.2')
     with output, log:
-        for index in range(51, len(options)):
+        for index in range(56, len(options)):
             street = wait_for_id(driver, 'ddlStreet')
             options = street.find_elements_by_tag_name('option')
             options[index].click()
