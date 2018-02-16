@@ -11,13 +11,16 @@ try:
     street = wait_for_id(driver, 'ddlStreet')
     options = street.find_elements_by_tag_name('option')
 
-    output = DataFile('violations')
+    output = DataFile('violations2')
+    log = DataFile('log2')
     with output:
         for index in range(2, len(options)):
             street = wait_for_id(driver, 'ddlStreet')
             options = street.find_elements_by_tag_name('option')
             options[index].click()
-            print options[index].text
+            street = options[index].text
+            print street
+            log.write_line(street)
             search_button = driver.find_element_by_id('btnSearch')
             search_button.click()
             rows = driver.find_elements_by_tag_name('tr')
@@ -28,7 +31,7 @@ try:
                 test_text = [element.text for element in row.find_elements_by_tag_name('tr')]
                 row_text = row.text
                 first_section = row_text.split()
-                if 'repeat offender' in row_text.lower() and ('/2018' in row_text.lower() or '/2017' in row_text):
+                if 'repeat offender' in row_text.lower() and ('/2018' in row_text or '/2017' in row_text):
                     print row_text
                     link = row.find_element_by_tag_name('a')
                     link.click()
@@ -56,6 +59,7 @@ try:
                     activity_table = driver.find_element_by_class_name('special_table')
                     table_rows = activity_table.text.split('\n')
                     activity_information = []
+                    # log.write_values(street, len(table_rows))
                     for trow in table_rows[1:]:
                         type_of_activity = ''
                         for word in trow.split()[:-1]:
