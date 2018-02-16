@@ -8,7 +8,7 @@ try:
     address = [link for link in links if 'Address' in link.text][0]
     address.click()
 
-    street = wait_for_id(driver, 'ddlStreet')
+    street = wait_for_id(driver, 'ddlStreet', time=20)
     options = street.find_elements_by_tag_name('option')
 
     output = DataFile('violations')
