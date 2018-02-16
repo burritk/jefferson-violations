@@ -33,7 +33,12 @@ try:
                     try:
                         row = rows[i]
                     except:
-                        print 'NOT ENOUGH ROWS HEH'
+                        try:
+                            rows = driver.find_elements_by_tag_name('tr')
+                            row = rows[i]
+                        except:
+                            print 'NOT ENOUGH ROWS HEH'
+                            continue
                     test_text = [element.text for element in row.find_elements_by_tag_name('tr')]
                     row_text = row.text
                     first_section = row_text.split()
