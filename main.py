@@ -11,10 +11,10 @@ try:
     street = wait_for_id(driver, 'ddlStreet')
     options = street.find_elements_by_tag_name('option')
 
-    output = DataFile('violations7')
-    log = DataFile('log7')
+    output = DataFile('violations')
+    log = DataFile('log1.2')
     with output, log:
-        for index in range(2, len(options)):
+        for index in range(51, len(options)):
             street = wait_for_id(driver, 'ddlStreet')
             options = street.find_elements_by_tag_name('option')
             options[index].click()
