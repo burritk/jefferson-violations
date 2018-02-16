@@ -13,18 +13,19 @@ try:
 
     output = DataFile('violations2')
     log = DataFile('log2')
-    with output:
+    with output, log:
         for index in range(2, len(options)):
             street = wait_for_id(driver, 'ddlStreet')
             options = street.find_elements_by_tag_name('option')
             options[index].click()
             street = options[index].text
             print street
-            log.write_line(street)
+
             search_button = driver.find_element_by_id('btnSearch')
             search_button.click()
             rows = driver.find_elements_by_tag_name('tr')
-
+            log.load_value(street + " rows: " + str(len(rows)))
+            repeat_offenders = 0
             for i in range(len(rows)):
                 rows = driver.find_elements_by_tag_name('tr')
                 row = rows[i]
@@ -32,6 +33,7 @@ try:
                 row_text = row.text
                 first_section = row_text.split()
                 if 'repeat offender' in row_text.lower() and ('/2018' in row_text or '/2017' in row_text):
+                    repeat_offenders += 1
                     print row_text
                     link = row.find_element_by_tag_name('a')
                     link.click()
@@ -77,6 +79,8 @@ try:
                     driver.back()
                 else:
                     continue
+            log.load_value(str(repeat_offenders))
+            log.write_loaded()
             driver.back()
 finally:
     driver.close()
