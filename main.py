@@ -17,7 +17,7 @@ try:
     output = DataFile('violations_first_chunk')
     log = DataFile('loggerfinal2')
     with output, log:
-        for index in range(0, len(options)):
+        for index in range(1, len(options)):
             street = wait_for_id(driver, 'ddlStreet')
             options = street.find_elements_by_tag_name('option')
             options[index].click()
