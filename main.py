@@ -14,14 +14,15 @@ try:
     street = wait_for_id(driver, 'ddlStreet', time=20)
     options = street.find_elements_by_tag_name('option')
 
-    output = DataFile('violations_final_2')
+    output = DataFile('violations_first_chunk')
     log = DataFile('loggerfinal2')
     with output, log:
-        for index in range(58, len(options)):
+        for index in range(0, len(options)):
             street = wait_for_id(driver, 'ddlStreet')
             options = street.find_elements_by_tag_name('option')
             options[index].click()
             street = options[index].text
+            print street
             search_button = driver.find_element_by_id('btnSearch')
             search_button.click()
             rows = driver.find_elements_by_tag_name('tr')
@@ -40,7 +41,7 @@ try:
                     scripts.append((first_section, link.get_attribute('href')))
                     repeat_offenders += 1
                     print repeat_offenders,
-            print 'scripts'
+            # print 'scripts'
             for first_section, script in scripts:
                 driver.execute_script(script)
                 try:
@@ -85,7 +86,7 @@ try:
                         output.load_values(type_of_activity, date_of_activity)
 
                     output.write_loaded()
-                    print 'written'
+                    print 'written',
                 except:
                     print 'something'
                     traceback.print_exc()
