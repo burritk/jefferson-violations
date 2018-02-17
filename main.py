@@ -38,7 +38,8 @@ try:
                     # location = first_section[4] + " " + first_section[5] + " " + first_section[6] + " " + first_section[7]
                     # service_requested = first_section[8]
                     scripts.append((first_section, link.get_attribute('href')))
-                    print link
+                    repeat_offenders += 1
+                    print repeat_offenders,
             print 'scripts'
             for first_section, script in scripts:
                 driver.execute_script(script)
