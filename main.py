@@ -3,7 +3,7 @@ import traceback
 from pyscraper.selenium_utils import get_headed_driver, get_headless_driver, wait_for_classname, wait_for_id, wait_for_tag
 from pyscraper.data_dump_file import DataFile
 
-driver = get_headless_driver(no_sandbox=True)
+driver = get_headed_driver()
 try:
     driver.get("http://jp-appserver.jeffparish.net/servicerequest/findServices.aspx")
     time.sleep(5)
@@ -14,10 +14,10 @@ try:
     street = wait_for_id(driver, 'ddlStreet', time=20)
     options = street.find_elements_by_tag_name('option')
 
-    output = DataFile('violations_second_chunk')
+    output = DataFile('violations_third_chunk')
     log = DataFile('loggerfinal2')
     with output, log:
-        for index in range(1639, len(options)):
+        for index in range(2701, len(options)):
             street = wait_for_id(driver, 'ddlStreet')
             options = street.find_elements_by_tag_name('option')
             options[index].click()
